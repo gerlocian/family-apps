@@ -19,11 +19,11 @@ data "aws_iam_role" "lambda_role" {
 }
 
 module "isbn-lookup-lambda" {
-  source        = "../../modules/lambda/"
-  function_name = "isbn-map-lambda"
-  filename      = data.archive_file.lambda.output_path
-  role          = data.aws_iam_role.lambda_role.arn
-  handler       = "isbn-map.service"
+  source            = "../../modules/lambda/"
+  function_name     = "isbn-map-lambda"
+  filename          = data.archive_file.lambda.output_path
+  role              = data.aws_iam_role.lambda_role.arn
+  handler           = "isbn-map.service"
 }
 
 terraform {

@@ -10,11 +10,12 @@ locals {
 }
 
 resource "aws_lambda_function" "lambda" {
-  function_name = var.function_name
-  filename      = var.filename
-  role          = var.role
-  handler       = var.handler
-  runtime       = var.runtime
+  function_name     = var.function_name
+  filename          = var.filename
+  role              = var.role
+  handler           = var.handler
+  runtime           = var.runtime
+  source_code_hash  = base64sha256(filebase64("${var.filename}"))
 
   dynamic "environment" {
     for_each = local.env_var_map
