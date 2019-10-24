@@ -20,7 +20,7 @@ data "aws_iam_role" "lambda_role" {
 
 module "isbn-lookup-lambda" {
   source        = "../../modules/lambda/"
-  function_name = "isbn-lookup-lambda"
+  function_name = yamldecode(file("${path.module}/${var.filename}.yml")).functionName
   filename      = data.archive_file.lambda.output_path
   role          = data.aws_iam_role.lambda_role.arn
   handler       = "isbn-lookup.service"
