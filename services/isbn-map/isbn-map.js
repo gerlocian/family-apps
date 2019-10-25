@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports.service = ({results: {items}}, context, callback) => {
-    callback(null, items.map(mapItems));
+    callback(null, { results: items.map(mapItems) });
 };
 
 function mapItems(item) {
