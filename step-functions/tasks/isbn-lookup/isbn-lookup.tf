@@ -10,8 +10,17 @@ variable "filename" {
 
 data "archive_file" "lambda" {
   type = "zip"
-  source_file = "${path.module}/${var.filename}.js"
   output_path = "${path.module}/${var.filename}.zip"
+
+  source {
+    content = file("${path.module}/${var.filename}.js")
+    filename = "${var.filename}.js"
+  }
+
+  source {
+    content = file("${path.module}/../../utils/compression/compression.js")
+    filename = "compression.js"
+  }
 }
 
 data "aws_iam_role" "lambda_role" {
@@ -19,11 +28,14 @@ data "aws_iam_role" "lambda_role" {
 }
 
 module "isbn-lookup-lambda" {
-  source        = "../../modules/lambda/"
+  source        = "../../../modules/lambda"
   function_name = yamldecode(file("${path.module}/${var.filename}.yml")).functionName
   filename      = data.archive_file.lambda.output_path
   role          = data.aws_iam_role.lambda_role.arn
   handler       = "isbn-lookup.service"
+  env_variables = {
+    deployed = true
+  }
 }
 
 terraform {
