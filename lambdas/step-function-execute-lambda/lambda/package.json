@@ -1,0 +1,11 @@
+{
+  "name": "step-function-execute-lambda",
+  "version": "1.0.0",
+  "description": "A lambda to start the execution of a step function and then watch it's execution for completion, returning the result.",
+  "main": "index.js",
+  "author": "Patrick Ortiz",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.558.0"
+  }
+}
